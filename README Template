@@ -1,0 +1,19 @@
+# Multilingual FAQ Management System
+
+## Features
+- Multilingual FAQ support
+- WYSIWYG editor integration
+- Automatic translation
+- Caching mechanism
+- REST API endpoints
+
+## Installation
+1. Clone the repository
+2. Install dependencies: `pip install -r requirements.txt`
+3. Run migrations: `python manage.py migrate`
+4. Start server: `python manage.py runserver`
+
+## API Usage
+- Fetch English FAQs: `GET /api/faqs/`
+- Fetch Hindi FAQs: `GET /api/faqs/?lang=hi`
+- Fetch Bengali FAQs: `GET /api/faqs/?lang=bn`
