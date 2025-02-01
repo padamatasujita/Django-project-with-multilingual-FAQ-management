@@ -1,0 +1,45 @@
+from django.db import models
+from django.utils.translation import gettext_lazy as _
+from ckeditor.fields import RichTextField
+from googletrans import Translator
+
+class FAQ(models.Model):
+    # Base question and answer fields
+    question = models.TextField()
+    answer = RichTextField()
+
+    # Multilingual fields
+    question_hi = models.TextField(blank=True, null=True)
+    answer_hi = RichTextField(blank=True, null=True)
+    
+    question_bn = models.TextField(blank=True, null=True)
+    answer_bn = RichTextField(blank=True, null=True)
+
+    def save(self, *args, **kwargs):
+        # Automatic translation logic
+        translator = Translator()
+        
+        if not self.question_hi:
+            self.question_hi = translator.translate(self.question, dest='hi').text
+        
+        if not self.answer_hi:
+            self.answer_hi = translator.translate(self.answer, dest='hi').text
+        
+        # Similar translation for Bengali
+        super().save(*args, **kwargs)
+
+    def get_translated_question(self, language='en'):
+        translations = {
+            'en': self.question,
+            'hi': self.question_hi or self.question,
+            'bn': self.question_bn or self.question
+        }
+        return translations.get(language, self.question)
+
+    def get_translated_answer(self, language='en'):
+        translations = {
+            'en': self.answer,
+            'hi': self.answer_hi or self.answer,
+            'bn': self.answer_bn or self.answer
+        }
+        return translations.get(language, self.answer)
