@@ -1,0 +1,13 @@
+multilingual-faq-project/
+│
+├── faq_app/
+│   ├── models.py
+│   ├── views.py
+│   ├── serializers.py
+│   ├── tests.py
+│   └── admin.py
+│
+├── requirements.txt
+├── Dockerfile
+├── docker-compose.yml
+└── README.md
